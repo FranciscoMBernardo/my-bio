@@ -42,6 +42,10 @@ const SKILL_GROUPS = [
     label: 'Software & Dados',
     skills: ['Bases de Dados', 'Engenharia de Software', 'Sistemas de Informação', 'Compiladores', 'Segurança Informática', 'Fundamentos de IA'],
   },
+  {
+    label: 'Stack Web',
+    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Git'],
+  },
 ]
 
 export function Skills() {
@@ -66,7 +70,7 @@ export function Skills() {
             <span className="text-primary">.</span>
           </h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border rounded-lg overflow-hidden">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-px bg-border border border-border rounded-lg overflow-hidden">
             {SKILL_GROUPS.map(({ label, skills }, i) => (
               <div
                 key={label}

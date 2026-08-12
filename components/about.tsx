@@ -91,10 +91,10 @@ export function About() {
 
             <div className="mt-8 grid grid-cols-2 gap-4">
               {[
-                { label: 'Localização', value: 'Portugal' },
+                { label: 'Localização', value: 'Coimbra, Portugal' },
                 { label: 'Foco', value: 'Full-Stack Dev' },
                 { label: 'Disponível', value: 'Estágio / Part-time' },
-                { label: 'Línguas', value: 'PT / EN' },
+                { label: 'Línguas', value: 'PT / EN / ES' },
               ].map(({ label, value }) => (
                 <div key={label} className="border border-border rounded p-3">
                   <p className="text-xs font-mono text-muted-foreground mb-1">{label}</p>
