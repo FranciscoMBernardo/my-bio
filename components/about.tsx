@@ -27,24 +27,24 @@ function useInView(threshold = 0.15) {
 
 const TIMELINE = [
   {
-    year: '2022',
-    title: 'Início da Jornada',
-    desc: 'Entrei no curso de Engenharia Informática, escrevi o meu primeiro Hello World e nunca mais parei.',
-  },
-  {
-    year: '2023',
-    title: 'Primeiros Projetos',
-    desc: 'Desenvolvi aplicações web completas, explorei bases de dados e apaixonei-me por arquitetura de software.',
-  },
-  {
     year: '2024',
-    title: 'Crescimento Técnico',
-    desc: 'Mergulhei em cloud computing, sistemas distribuídos e contribuí para projetos open source.',
+    title: 'Início da Jornada',
+    desc: 'Entrei na Licenciatura em Engenharia Informática na Universidade de Coimbra. Primeiro ano com Análise Matemática, Estruturas Discretas, Introdução à Programação e Arquitetura de Computadores.',
   },
   {
-    year: '2025 →',
+    year: '2025',
+    title: 'Sistemas e Dados',
+    desc: 'Segundo ano: Algoritmos e Estruturas de Dados, Sistemas Operativos, Bases de Dados e Redes de Comunicação — a base para pensar em software a sério.',
+  },
+  {
+    year: '2026 →',
     title: 'Agora',
-    desc: 'A construir projetos ambiciosos, a aprender constantemente e à procura de oportunidades para causar impacto.',
+    desc: 'Terceiro e último ano: Engenharia de Software, Sistemas Distribuídos, Fundamentos de Inteligência Artificial, Compiladores e Segurança Informática.',
+  },
+  {
+    year: '2027',
+    title: 'Conclusão',
+    desc: 'Fim previsto da licenciatura. A construir projetos e a aprender continuamente enquanto procuro oportunidades para causar impacto.',
   },
 ]
 
@@ -74,8 +74,9 @@ export function About() {
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                Olá! Sou o Francisco, estudante de Engenharia Informática com uma obsessão
-                saudável por resolver problemas complexos através de código limpo e bem pensado.
+                Olá! Sou o Francisco, estudante de Engenharia Informática na Universidade de
+                Coimbra, com uma obsessão saudável por resolver problemas complexos através de
+                código limpo e bem pensado.
               </p>
               <p>
                 Gosto de trabalhar em toda a stack — do design de APIs ao que o utilizador vê no
