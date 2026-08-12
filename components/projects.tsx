@@ -34,7 +34,38 @@ const PROJECTS: {
   github: string
   live: string | null
   status: string
-}[] = []
+}[] = [
+  {
+    id: '01',
+    title: 'Gestor de Tarefas ASP.NET',
+    desc: 'Mini-projeto: gestor de tarefas com ASP.NET Core Razor Pages, Entity Framework Core e SQL Server.',
+    tags: ['C#', 'ASP.NET Core', 'Razor Pages', 'Entity Framework Core', 'SQL Server'],
+    featured: true,
+    github: 'https://github.com/FranciscoMBernardo/gestor-tarefas-aspnet',
+    live: null,
+    status: 'Mini-projeto',
+  },
+  {
+    id: '02',
+    title: 'PowerUDP Protocol',
+    desc: 'Protocolo UDP fiável implementado em C, com retransmissão e controlo de congestão.',
+    tags: ['C', 'Redes', 'UDP', 'Protocolos de Comunicação'],
+    featured: true,
+    github: 'https://github.com/FranciscoMBernardo/powerudp-protocol',
+    live: null,
+    status: 'Académico',
+  },
+  {
+    id: '03',
+    title: 'AED Tree Benchmark',
+    desc: 'Análise e Transformação de Dados — comparação de desempenho entre árvores de ordenação.',
+    tags: ['Java', 'Árvores', 'Algoritmos', 'Estruturas de Dados'],
+    featured: true,
+    github: 'https://github.com/FranciscoMBernardo/aed-tree-benchmark',
+    live: null,
+    status: 'Académico',
+  },
+]
 
 function ExternalLinkIcon() {
   return (
