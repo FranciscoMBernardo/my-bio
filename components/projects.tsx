@@ -25,48 +25,16 @@ function useInView(threshold = 0.1) {
   return { ref, inView }
 }
 
-const PROJECTS = [
-  {
-    id: '01',
-    title: 'DevLink Hub',
-    desc: 'Plataforma de partilha de recursos para programadores — bookmarks, snippets e notas sincronizadas em tempo real.',
-    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Realtime'],
-    featured: true,
-    github: '#',
-    live: '#',
-    status: 'Em produção',
-  },
-  {
-    id: '02',
-    title: 'TaskFlow CLI',
-    desc: 'Ferramenta de linha de comandos para gestão de tarefas e projetos com suporte a Git hooks e relatórios automáticos.',
-    tags: ['Node.js', 'CLI', 'Git', 'SQLite'],
-    featured: true,
-    github: '#',
-    live: null,
-    status: 'Open Source',
-  },
-  {
-    id: '03',
-    title: 'CampusAPI',
-    desc: 'API REST para gestão de horários universitários — construída para o projeto de cadeira de Engenharia de Software.',
-    tags: ['Python', 'FastAPI', 'Docker', 'PostgreSQL'],
-    featured: false,
-    github: '#',
-    live: null,
-    status: 'Académico',
-  },
-  {
-    id: '04',
-    title: 'Portfólio v1',
-    desc: 'Primeira versão do meu site pessoal. Simples, estático, mas foi onde tudo começou.',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    featured: false,
-    github: '#',
-    live: '#',
-    status: 'Arquivado',
-  },
-]
+const PROJECTS: {
+  id: string
+  title: string
+  desc: string
+  tags: string[]
+  featured: boolean
+  github: string
+  live: string | null
+  status: string
+}[] = []
 
 function ExternalLinkIcon() {
   return (
@@ -114,6 +82,17 @@ export function Projects() {
             <span className="text-primary"> construído</span>
             <span className="text-primary">.</span>
           </h2>
+
+          {PROJECTS.length === 0 && (
+            <div className="border border-dashed border-border rounded-lg p-10 text-center">
+              <p className="font-mono text-sm text-muted-foreground">
+                <span className="text-primary">$</span> projetos --status
+              </p>
+              <p className="text-muted-foreground mt-2">
+                A preparar os projetos para mostrar aqui. Volta em breve.
+              </p>
+            </div>
+          )}
 
           {/* Featured projects */}
           <div className="space-y-6 mb-12">
@@ -180,9 +159,11 @@ export function Projects() {
           </div>
 
           {/* Other projects grid */}
-          <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-6">
-            Outros projetos
-          </p>
+          {others.length > 0 && (
+            <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase mb-6">
+              Outros projetos
+            </p>
+          )}
           <div className="grid sm:grid-cols-2 gap-4">
             {others.map((project, i) => (
               <article

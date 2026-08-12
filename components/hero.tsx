@@ -137,7 +137,7 @@ export function Hero() {
         {/* Social links */}
         <div className="mt-14 flex items-center gap-6 animate-fade-up-delay-4">
           <a
-            href="https://github.com"
+            href="https://github.com/FranciscoMBernardo"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -148,7 +148,7 @@ export function Hero() {
             </svg>
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/FranciscoMBernardo"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -159,7 +159,7 @@ export function Hero() {
             </svg>
           </a>
           <a
-            href="mailto:francisco@example.com"
+            href="mailto:francisco.bernardo.pt@gmail.com"
             aria-label="Email"
             className="text-muted-foreground hover:text-primary transition-colors duration-200"
           >
