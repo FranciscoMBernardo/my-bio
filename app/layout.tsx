@@ -13,13 +13,30 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-mono',
 })
 
+const siteUrl = 'https://franciscobernardo.vercel.app'
+const title = 'Francisco Bernardo — Engenheiro Informático'
+const description =
+  'Site pessoal de Francisco Bernardo, estudante de Engenharia Informática na Universidade de Coimbra. Apaixonado por código, sistemas e construir coisas bacanas.'
+
 export const metadata: Metadata = {
-  title: 'Francisco Bernardo — Engenheiro Informático',
-  description:
-    'Site pessoal de Francisco Bernardo, estudante de Engenharia Informática. Apaixonado por código, sistemas e construir coisas bacanas.',
-  generator: 'v0.app',
-  keywords: ['engenharia informática', 'developer', 'portfolio', 'Francisco Bernardo'],
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  keywords: ['engenharia informática', 'developer', 'portfolio', 'Francisco Bernardo', 'Universidade de Coimbra'],
   authors: [{ name: 'Francisco Bernardo' }],
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: title,
+    locale: 'pt_PT',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title,
+    description,
+  },
 }
 
 export const viewport: Viewport = {
