@@ -27,20 +27,20 @@ function useInView(threshold = 0.15) {
 
 const SKILL_GROUPS = [
   {
-    label: 'Frontend',
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'HTML/CSS'],
+    label: 'Fundamentos',
+    skills: ['Análise Matemática', 'Álgebra Linear', 'Estruturas Discretas', 'Teoria da Computação', 'Estatística'],
   },
   {
-    label: 'Backend',
-    skills: ['Node.js', 'Python', 'REST APIs', 'GraphQL', 'PostgreSQL'],
+    label: 'Programação',
+    skills: ['Programação Procedimental', 'Programação Orientada a Objetos', 'Algoritmos e Estruturas de Dados', 'Estratégias Algorítmicas'],
   },
   {
-    label: 'DevOps & Tools',
-    skills: ['Git', 'Docker', 'Linux', 'CI/CD', 'Vercel'],
+    label: 'Sistemas & Redes',
+    skills: ['Arquitetura de Computadores', 'Sistemas Operativos', 'Redes de Comunicação', 'Protocolos de Comunicação', 'Sistemas Distribuídos'],
   },
   {
-    label: 'Conceitos',
-    skills: ['Algoritmos', 'Estruturas de Dados', 'OOP', 'Sistemas Operativos', 'Redes'],
+    label: 'Software & Dados',
+    skills: ['Bases de Dados', 'Engenharia de Software', 'Sistemas de Informação', 'Compiladores', 'Segurança Informática', 'Fundamentos de IA'],
   },
 ]
 
