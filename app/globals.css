@@ -1,0 +1,166 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback';
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback';
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neon: var(--neon);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  color-scheme: dark;
+  --background: oklch(0.1 0.008 265);
+  --foreground: oklch(0.96 0.005 265);
+  --card: oklch(0.13 0.01 265);
+  --card-foreground: oklch(0.96 0.005 265);
+  --popover: oklch(0.13 0.01 265);
+  --popover-foreground: oklch(0.96 0.005 265);
+  --primary: oklch(0.76 0.22 155);
+  --primary-foreground: oklch(0.1 0.008 265);
+  --secondary: oklch(0.18 0.01 265);
+  --secondary-foreground: oklch(0.96 0.005 265);
+  --muted: oklch(0.16 0.008 265);
+  --muted-foreground: oklch(0.55 0.02 265);
+  --accent: oklch(0.76 0.22 155);
+  --accent-foreground: oklch(0.1 0.008 265);
+  --destructive: oklch(0.65 0.22 27);
+  --border: oklch(0.22 0.01 265);
+  --input: oklch(0.18 0.01 265);
+  --ring: oklch(0.76 0.22 155);
+  --neon: oklch(0.76 0.22 155);
+  --radius: 0.5rem;
+
+  --sidebar: oklch(0.13 0.01 265);
+  --sidebar-foreground: oklch(0.96 0.005 265);
+  --sidebar-primary: oklch(0.76 0.22 155);
+  --sidebar-primary-foreground: oklch(0.1 0.008 265);
+  --sidebar-accent: oklch(0.18 0.01 265);
+  --sidebar-accent-foreground: oklch(0.96 0.005 265);
+  --sidebar-border: oklch(0.22 0.01 265);
+  --sidebar-ring: oklch(0.76 0.22 155);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Neon glow utilities */
+.glow-primary {
+  text-shadow: 0 0 20px oklch(0.76 0.22 155 / 0.6), 0 0 40px oklch(0.76 0.22 155 / 0.3);
+}
+
+.glow-border {
+  box-shadow: 0 0 0 1px oklch(0.76 0.22 155 / 0.3), 0 0 20px oklch(0.76 0.22 155 / 0.1);
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1.2s step-start infinite;
+}
+
+/* Fade up animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fadeUp 0.6s ease 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fadeUp 0.6s ease 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delay-3 {
+  animation: fadeUp 0.6s ease 0.35s forwards;
+  opacity: 0;
+}
+
+.animate-fade-up-delay-4 {
+  animation: fadeUp 0.6s ease 0.5s forwards;
+  opacity: 0;
+}
+
+/* Scanline overlay */
+.scanlines::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    oklch(0 0 0 / 0.03) 2px,
+    oklch(0 0 0 / 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Grid dot background */
+.dot-grid {
+  background-image: radial-gradient(circle, oklch(0.76 0.22 155 / 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
