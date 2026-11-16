@@ -44,7 +44,17 @@ const SKILL_GROUPS = [
   },
   {
     label: 'Stack Web',
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Git'],
+    skills: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'Tailwind CSS',
+      'Git',
+      'Cloudflare Pages',
+      'Acessibilidade (WCAG 2.1 AA)',
+      'SEO técnico',
+      'CMS headless (Sveltia)',
+    ],
   },
 ]
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 function useInView(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null)
@@ -25,18 +25,62 @@ function useInView(threshold = 0.1) {
   return { ref, inView }
 }
 
+type CaseStudy = {
+  problem: string
+  whatIDid: string[]
+  whatILearned: string[]
+  images: { src: string; alt: string }[]
+}
+
 const PROJECTS: {
   id: string
   title: string
   desc: string
   tags: string[]
   featured: boolean
-  github: string
+  github: string | null
   live: string | null
   status: string
+  caseStudy?: CaseStudy
 }[] = [
   {
     id: '01',
+    title: 'Site da Junta de Freguesia de Aldeia Viçosa',
+    desc: 'Site oficial de uma freguesia do concelho da Guarda, feito de raiz: notícias, eventos, contas públicas, património e um editor de conteúdos para a própria Junta atualizar sozinha.',
+    tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Cloudflare Pages', 'Sveltia CMS', 'WCAG 2.1 AA', 'SEO'],
+    featured: true,
+    github: null,
+    live: 'https://jf-aldeiavicosa.pt',
+    status: 'Projeto real',
+    caseStudy: {
+      problem:
+        'A freguesia tinha um site antigo feito no Webnode, difícil de manter e sem acessibilidade em condições — e a lei (DL n.º 83/2018) obriga os sites públicos a cumprir a norma WCAG 2.1 AA.',
+      whatIDid: [
+        'Site novo em Next.js (App Router) com exportação estática, TypeScript e Tailwind CSS, alojado na Cloudflare Pages com publicação automática a cada push ao GitHub.',
+        'Editor de conteúdos (Sveltia CMS) com início de sessão por GitHub, para a Junta publicar notícias, eventos, contas e atas sem tocar em código — cada gravação vira um commit.',
+        'Conteúdo organizado em coleções (notícias, eventos, orçamentos e prestações de contas, atas, património, etc.), guardado como ficheiros Markdown no repositório.',
+        'Site bilingue (PT/EN) nas páginas principais, com feed RSS das notícias e calendário .ics dos eventos.',
+        'Acessibilidade WCAG 2.1 AA como requisito do build: por exemplo, o build falha se uma imagem não tiver texto alternativo.',
+        'Segurança e infraestrutura: cabeçalhos HSTS/CSP, editor numa rota não óbvia protegida por Cloudflare Access (Zero Trust), redireccionamentos do site antigo para não partir ligações, Dependabot e npm audit a zero.',
+        'Medição sem cookies com Cloudflare Web Analytics (sem banner de consentimento).',
+        'Documentação viva: um CONTEXTO.md com decisões e tarefas, e um guia em português simples para a Junta publicar sozinha.',
+      ],
+      whatILearned: [
+        'Acessibilidade não é um extra — tornei-a um requisito que parte o build.',
+        'Software para uma instituição tem de ser mantido por não-programadores: a escolha do editor e das mensagens de erro em português claro importou mais do que qualquer tecnologia.',
+        'Lançamento com plano de recuo: um guião passo a passo com testes de fora, critério GO/NÃO-GO e forma de voltar atrás em 1 minuto.',
+        'Segurança e dependências (Dependabot, overrides) como rotina, não como exceção.',
+        'Construí este site com apoio de IA (Claude), a decidir, rever e testar cada parte — saber dirigir, verificar e integrar é, para mim, parte do trabalho.',
+      ],
+      images: [
+        { src: '/projects/aldeia-vicosa-desktop.png', alt: 'Página inicial do site da Junta de Freguesia de Aldeia Viçosa, em computador, com a torre da igreja em destaque' },
+        { src: '/projects/aldeia-vicosa-noticias.jpg', alt: 'Lista de notícias e editais da Junta de Freguesia de Aldeia Viçosa' },
+        { src: '/projects/aldeia-vicosa-mobile.png', alt: 'Página inicial do site da Junta de Freguesia de Aldeia Viçosa, em telemóvel' },
+      ],
+    },
+  },
+  {
+    id: '02',
     title: 'Gestor de Tarefas ASP.NET',
     desc: 'Mini-projeto: gestor de tarefas com ASP.NET Core Razor Pages, Entity Framework Core e SQL Server.',
     tags: ['C#', 'ASP.NET Core', 'Razor Pages', 'Entity Framework Core', 'SQL Server'],
@@ -46,7 +90,7 @@ const PROJECTS: {
     status: 'Mini-projeto',
   },
   {
-    id: '02',
+    id: '03',
     title: 'PowerUDP Protocol',
     desc: 'Protocolo UDP fiável implementado em C, com retransmissão e controlo de congestão.',
     tags: ['C', 'Redes', 'UDP', 'Protocolos de Comunicação'],
@@ -56,7 +100,7 @@ const PROJECTS: {
     status: 'Académico',
   },
   {
-    id: '03',
+    id: '04',
     title: 'AED Tree Benchmark',
     desc: 'Análise e Transformação de Dados — comparação de desempenho entre árvores de ordenação.',
     tags: ['Java', 'Árvores', 'Algoritmos', 'Estruturas de Dados'],
@@ -89,8 +133,165 @@ function GitHubIcon() {
   )
 }
 
+function ChevronIcon({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      className={`transition-transform duration-200 motion-reduce:transition-none ${open ? 'rotate-180' : ''}`}
+    >
+      <path
+        d="M3.5 6L8 10.5L12.5 6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function ProjectCard({
+  project,
+  index,
+  inView,
+  isOpen,
+  onToggle,
+}: {
+  project: (typeof PROJECTS)[number]
+  index: number
+  inView: boolean
+  isOpen: boolean
+  onToggle: () => void
+}) {
+  const panelId = useId()
+
+  return (
+    <article
+      className={`group relative border border-border rounded-lg p-6 md:p-8 hover:border-primary/50 transition-all duration-300 overflow-hidden ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      style={{ transitionDelay: `${index * 120}ms` }}
+    >
+      {/* Subtle hover bg */}
+      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      <div className="relative">
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div>
+            <span className="font-mono text-xs text-muted-foreground">{project.id}</span>
+            <h3 className="text-xl font-bold text-foreground mt-1 group-hover:text-primary transition-colors duration-200">
+              {project.title}
+            </h3>
+          </div>
+          <span className="flex-shrink-0 text-xs font-mono border border-primary/30 text-primary px-2 py-1 rounded">
+            {project.status}
+          </span>
+        </div>
+
+        <p className="text-muted-foreground text-sm leading-relaxed mb-5">{project.desc}</p>
+
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-xs text-muted-foreground bg-secondary px-2 py-1 rounded"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="flex items-center gap-4">
+            {project.github && (
+              <a
+                href={project.github}
+                aria-label={`GitHub — ${project.title}`}
+                className="text-muted-foreground hover:text-primary transition-colors duration-200"
+              >
+                <GitHubIcon />
+              </a>
+            )}
+            {project.live && (
+              <a
+                href={project.live}
+                aria-label={`Ver ${project.title} ao vivo`}
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors duration-200"
+              >
+                <ExternalLinkIcon />
+                <span>Live</span>
+              </a>
+            )}
+            {project.caseStudy && (
+              <button
+                type="button"
+                onClick={onToggle}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
+                className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-primary transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2 rounded"
+              >
+                <span>{isOpen ? 'Fechar estudo de caso' : 'Ver estudo de caso'}</span>
+                <ChevronIcon open={isOpen} />
+              </button>
+            )}
+          </div>
+        </div>
+
+        {project.caseStudy && (
+          <div
+            id={panelId}
+            hidden={!isOpen}
+            className="mt-6 pt-6 border-t border-border space-y-6"
+          >
+            <div>
+              <p className="font-mono text-xs text-primary tracking-widest uppercase mb-2">O problema</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{project.caseStudy.problem}</p>
+            </div>
+
+            <div>
+              <p className="font-mono text-xs text-primary tracking-widest uppercase mb-2">O que fiz</p>
+              <ul className="space-y-1.5">
+                {project.caseStudy.whatIDid.map((item) => (
+                  <li key={item} className="text-sm text-muted-foreground leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-primary/60">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="font-mono text-xs text-primary tracking-widest uppercase mb-2">O que aprendi</p>
+              <ul className="space-y-1.5">
+                {project.caseStudy.whatILearned.map((item) => (
+                  <li key={item} className="text-sm text-muted-foreground leading-relaxed pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-primary/60">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="grid sm:grid-cols-3 gap-3">
+              {project.caseStudy.images.map((img) => (
+                <img
+                  key={img.src}
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="rounded-md border border-border w-full h-auto"
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}
+
 export function Projects() {
   const { ref, inView } = useInView()
+  const [expandedId, setExpandedId] = useState<string | null>(null)
   const featured = PROJECTS.filter((p) => p.featured)
   const others = PROJECTS.filter((p) => !p.featured)
 
@@ -127,66 +328,19 @@ export function Projects() {
 
           {/* Featured projects */}
           <div className="space-y-6 mb-12">
-            {featured.map((project, i) => (
-              <article
-                key={project.id}
-                className={`group relative border border-border rounded-lg p-6 md:p-8 hover:border-primary/50 transition-all duration-300 overflow-hidden ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                {/* Subtle hover bg */}
-                <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                <div className="relative">
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <div>
-                      <span className="font-mono text-xs text-muted-foreground">{project.id}</span>
-                      <h3 className="text-xl font-bold text-foreground mt-1 group-hover:text-primary transition-colors duration-200">
-                        {project.title}
-                      </h3>
-                    </div>
-                    <span className="flex-shrink-0 text-xs font-mono border border-primary/30 text-primary px-2 py-1 rounded">
-                      {project.status}
-                    </span>
-                  </div>
-
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-5">
-                    {project.desc}
-                  </p>
-
-                  <div className="flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="font-mono text-xs text-muted-foreground bg-secondary px-2 py-1 rounded"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <a
-                        href={project.github}
-                        aria-label={`GitHub — ${project.title}`}
-                        className="text-muted-foreground hover:text-primary transition-colors duration-200"
-                      >
-                        <GitHubIcon />
-                      </a>
-                      {project.live && (
-                        <a
-                          href={project.live}
-                          aria-label={`Ver ${project.title} ao vivo`}
-                          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary transition-colors duration-200"
-                        >
-                          <ExternalLinkIcon />
-                          <span>Live</span>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
+            {featured.map((project, i) => {
+              const isOpen = expandedId === project.id
+              return (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  index={i}
+                  inView={inView}
+                  isOpen={isOpen}
+                  onToggle={() => setExpandedId(isOpen ? null : project.id)}
+                />
+              )
+            })}
           </div>
 
           {/* Other projects grid */}
@@ -207,13 +361,15 @@ export function Projects() {
                     {project.title}
                   </h3>
                   <div className="flex items-center gap-3 text-muted-foreground">
-                    <a
-                      href={project.github}
-                      aria-label={`GitHub — ${project.title}`}
-                      className="hover:text-primary transition-colors duration-200"
-                    >
-                      <GitHubIcon />
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        aria-label={`GitHub — ${project.title}`}
+                        className="hover:text-primary transition-colors duration-200"
+                      >
+                        <GitHubIcon />
+                      </a>
+                    )}
                     {project.live && (
                       <a
                         href={project.live}

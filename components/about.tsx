@@ -34,12 +34,17 @@ const TIMELINE = [
   {
     year: '2025',
     title: 'Sistemas e Dados',
-    desc: 'Segundo ano: Algoritmos e Estruturas de Dados, Sistemas Operativos, Bases de Dados e Redes de Comunicação — a base para pensar em software a sério.',
+    desc: 'Segundo ano: Algoritmos e Estruturas de Dados, Sistemas Operativos, Bases de Dados e Redes de Comunicação — a base para pensar em software a sério. Também participei como trainee no departamento de projetos de eletrotécnica da Pollux Space Technologies, a júnior iniciativa de tecnologia espacial da Universidade de Coimbra.',
   },
   {
     year: '2026 →',
     title: 'Agora',
     desc: 'Terceiro e último ano: Engenharia de Software, Sistemas Distribuídos, Fundamentos de Inteligência Artificial, Compiladores e Segurança Informática.',
+  },
+  {
+    year: 'Ago 2026',
+    title: 'Imersão Mestreclique',
+    desc: 'Duas semanas de imersão numa equipa de desenvolvimento: Git/GitHub, segurança, IA, sistemas distribuídos, sistemas operativos, bases de dados, UI/UX, produto, algoritmos, escala e redundância — com contributo direto num projeto real em ASP.NET Web Forms.',
   },
   {
     year: '2027',
