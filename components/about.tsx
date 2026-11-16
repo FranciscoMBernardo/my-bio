@@ -42,14 +42,14 @@ const TIMELINE = [
     desc: 'Trainee no departamento de projetos de eletrotécnica da Pollux, a única júnior iniciativa portuguesa dedicada ao setor espacial — uma ponte entre a universidade e a indústria espacial, a desenvolver tecnologia para projetos como o balão estratosférico Thestias e a missão THOR.',
   },
   {
-    year: '2026 →',
-    title: 'Agora',
-    desc: 'Terceiro e último ano: Engenharia de Software, Sistemas Distribuídos, Fundamentos de Inteligência Artificial, Compiladores e Segurança Informática.',
-  },
-  {
     year: 'Ago 2026',
     title: 'Imersão Mestreclique',
     desc: 'Duas semanas de imersão numa equipa de desenvolvimento: Git/GitHub, segurança, IA, sistemas distribuídos, sistemas operativos, bases de dados, UI/UX, produto, algoritmos, escala e redundância — com contributo direto num projeto real em ASP.NET Web Forms.',
+  },
+  {
+    year: '2026 →',
+    title: 'Agora',
+    desc: 'Terceiro e último ano: Engenharia de Software, Sistemas Distribuídos, Fundamentos de Inteligência Artificial, Compiladores e Segurança Informática.',
   },
   {
     year: '2027',
