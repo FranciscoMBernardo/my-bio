@@ -37,7 +37,7 @@ const TIMELINE = [
     desc: 'Segundo ano: Algoritmos e Estruturas de Dados, Sistemas Operativos, Bases de Dados e Redes de Comunicação — a base para pensar em software a sério.',
   },
   {
-    year: '2025',
+    year: '2026',
     title: 'Pollux Space Technologies',
     desc: 'Trainee no departamento de projetos de eletrotécnica da Pollux, a única júnior iniciativa portuguesa dedicada ao setor espacial — uma ponte entre a universidade e a indústria espacial, a desenvolver tecnologia para projetos como o balão estratosférico Thestias e a missão THOR.',
   },
