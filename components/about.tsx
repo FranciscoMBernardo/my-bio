@@ -34,7 +34,12 @@ const TIMELINE = [
   {
     year: '2025',
     title: 'Sistemas e Dados',
-    desc: 'Segundo ano: Algoritmos e Estruturas de Dados, Sistemas Operativos, Bases de Dados e Redes de Comunicação — a base para pensar em software a sério. Também participei como trainee no departamento de projetos de eletrotécnica da Pollux Space Technologies, a júnior iniciativa de tecnologia espacial da Universidade de Coimbra.',
+    desc: 'Segundo ano: Algoritmos e Estruturas de Dados, Sistemas Operativos, Bases de Dados e Redes de Comunicação — a base para pensar em software a sério.',
+  },
+  {
+    year: '2025',
+    title: 'Pollux Space Technologies',
+    desc: 'Trainee no departamento de projetos de eletrotécnica da Pollux, a única júnior iniciativa portuguesa dedicada ao setor espacial — uma ponte entre a universidade e a indústria espacial, a desenvolver tecnologia para projetos como o balão estratosférico Thestias e a missão THOR.',
   },
   {
     year: '2026 →',
@@ -115,7 +120,7 @@ export function About() {
             <div className="space-y-8">
               {TIMELINE.map(({ year, title, desc }, i) => (
                 <div
-                  key={year}
+                  key={`${year}-${title}`}
                   className={`relative transition-all duration-500`}
                   style={{ transitionDelay: `${i * 100}ms` }}
                 >
